@@ -1,2 +1,2 @@
-# FDP-Tools
-A variety of pre-packaged queries to avoid having to send SPARQL to the FDP
+# FDP-Index-Proxy
+A proxy to allow the FAIR Data Point index to consume normal DCAT records
