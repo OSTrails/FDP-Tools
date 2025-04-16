@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# FDP_INDEX = ENV['FDP_INDEX'] || 'https://tools.ostrails.eu/repositories/fdpindex-fdp'
+
 require_relative './fdp_tools/version'
 require 'sinatra'
 require 'json'
@@ -13,13 +15,11 @@ require_relative  'queries'
 require_relative  'fdp'
 require 'linkeddata'
 require 'rest-client'
-require 'sparql-client'
+require 'sparql/client'
 
 require 'rdf/vocab'
 
 require_all '.'
-
-FDP_INDEX = ENV['FDP_INDEX'] || 'https://tools.ostrails.eu/repositories/fdpindex-fdp'
 
 module FdpTools
   class Error < StandardError; end

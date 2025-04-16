@@ -6,17 +6,17 @@ NAMESPACES = "PREFIX dcat: <http://www.w3.org/ns/dcat#>
   PREFIX dqv: <http://www.w3.org/ns/dqv#>
   PREFIX sio: <http://semanticscience.org/resource/>
   ".freeze
-require 'sparql/client'
-SPARQL = SPARQL::Client.new('http://dbpedia.org/sparql')
 
-def find_tests_for_metric(endpoint:, metricid:)
+def find_tests_for_metric(metricid:)
+  spq = SPARQL::Client.new(ENV['FDP_INDEX'])
   query = "
     #{NAMESPACES}
     SELECT DISTINCT ?testid WHERE
     {
-     ?test sio['SIO_000233'] <#{metricid}> .
-     ?testid dct:identifier ?testid .
+     ?test sio:SIO_000233 <#{metricid}> .
+     ?test dct:identifier ?testid .
     }
     "
-  result = SPARQL.query(query).map { |result| result[:s].to_s }
+  warn query
+  spq.query(query).map { |result| result[:testid].to_s }
 end

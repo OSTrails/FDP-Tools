@@ -1,3 +1,5 @@
+require_relative './queries'
+
 module FdpTools
   class FDP
     attr_accessor :graph, :address, :called, :toptype, :suffix
@@ -13,26 +15,9 @@ module FdpTools
     end
 
     def self.get_tests_for_metric(metricid:)
-      # the logic here is to find the "highest level" DCAT object
-      # e.g. Catalog is higher than Dataset
-      query = SPARQL.parse('SELECT distinct ?type WHERE { ?s a ?type }') # this is called for every objecgt type in the DCAT record
-      types = query.execute(@graph).map { |result| result[:type].to_s }
-      warn 'toplevel results', types
-      toptype = nil
-
-      if types.include?('https://w3id.org/fdp/fdp-o#FAIRDataPoint')
-        toptype = 'FDP'
-      elsif types.include?('http://www.w3.org/ns/dcat#Catalog')
-        toptype = 'Catalog'
-      elsif types.include?('http://www.w3.org/ns/dcat#Dataset')
-        toptype = 'Dataset'
-      elsif types.include?('http://www.w3.org/ns/dcat#Disgtribution')
-        toptype = 'Distribution'
-      elsif types.include?('http://www.w3.org/ns/dcat#DataService')
-        toptype = 'DataService'
-      end
-      warn 'final TOP type', toptype
-      toptype
+      tests = find_tests_for_metric(metricid: metricid)
+      warn 'found tests', tests
+      tests
     end
   end
 end

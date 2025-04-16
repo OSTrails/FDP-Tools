@@ -2,13 +2,17 @@
 
 require_relative '../../lib/fdp_tools'
 
-def set_routes(classes: allclasses)
+def set_routes
   set :server_settings, timeout: 180
   set :public_folder, 'public'
   set :server, 'webrick'
   set :bind, '0.0.0.0'
   set :views, 'application/views'
   enable :cross_origin
+  set :environment, :production
+  enable :cross_origin
+  set :protection, except: :ip_spoofing
+
   options '*' do
     response.headers['Allow'] = 'GET, PUT, POST, DELETE, OPTIONS'
     response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token'
@@ -19,10 +23,6 @@ def set_routes(classes: allclasses)
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
   end
-
-  abort 'FDP_PROXY_HOST not set' unless ENV['FDP_PROXY_HOST']
-  abort 'FDP_PROXY_METHOD not set' unless ENV['FDP_PROXY_METHOD']
-  abort 'FDP_INDEX not set' unless ENV['FDP_INDEX']
 
   get '/' do
     redirect '/fdp-tools/'
@@ -40,7 +40,7 @@ def set_routes(classes: allclasses)
     end
     @metrics = FdpTools::FDP.get_tests_for_metric(metricid: params[:metricid])
 
-    unless graph # might be false if it doesn't exist
+    unless @metrics # might be false if it doesn't exist
       error 400
       halt
     end
@@ -56,7 +56,7 @@ def set_routes(classes: allclasses)
       when 'text/html'
         content_type :html
         halt @metrics.join ','
-      else # for the FDP index send turtle by default
+      else
         error 406
         halt
       end
