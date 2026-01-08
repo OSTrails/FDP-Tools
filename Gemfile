@@ -1,42 +1,50 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # Specify your gem's dependencies in fdp_index_proxy.gemspec
 gemspec
 
-ruby "3.3.0"
+ruby '3.3.0'
 
-gem "rake", "~> 13.0"
+gem 'sinatra', '~> 4.0'
 
-gem "rspec", "~> 3.0"
+gem 'json-ld', '~> 3.3'
 
-gem "linkeddata", "~> 3.3"
+gem 'securerandom', '~> 0.3.1'
 
-gem "sinatra", "~> 4.0"
+gem 'require_all', '~> 3.0'
 
-gem "json-ld", "~> 3.3"
+gem 'rdf-vocab', '~> 3.3'
 
-gem "securerandom", "~> 0.3.1"
+gem 'webrick', '~> 1.8'
 
-gem "require_all", "~> 3.0"
+gem 'rackup', '~> 2.1'
 
-gem "rdf-vocab", "~> 3.3"
+gem 'uri', '~> 1.1.1'
 
-gem "webrick", "~> 1.8"
+gem 'rest-client', '~> 2.1'
 
-gem "rackup", "~> 2.1"
+gem 'erb', '~> 4.0'
 
-gem "uri", "~> 0.13.1"
+gem 'fileutils', '~> 1.7'
 
-gem "rest-client", "~> 2.1"
+gem 'stringio', '~> 3.1.1'
 
-gem "erb", "~> 4.0"
+gem 'connection_pool', '2.5.5' # maintainer of this gem has comitted a buggy version v.v. Ruby 3.3
 
-gem "fileutils", "~> 1.7"
+group :development do
+  gem 'capybara'
+  gem 'guard'
+  gem 'pry'
+  gem 'rack-test'
+  gem 'rspec'
+  gem 'rspec-core'
+  gem 'rspec-openapi'
+  gem 'rubocop'
+  gem 'shotgun'
+end
 
-gem "stringio", "~> 3.1.1"
+gem 'sparql-client', '~> 3.3'
 
-gem "rubocop", "~> 1.67"
-
-gem "sparql-client", "~> 3.3"
+gem 'linkeddata', '3.2'

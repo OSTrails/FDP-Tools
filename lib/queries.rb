@@ -8,7 +8,8 @@ NAMESPACES = "PREFIX dcat: <http://www.w3.org/ns/dcat#>
   ".freeze
 
 def find_tests_for_metric(metricid:)
-  spq = SPARQL::Client.new(ENV['FDP_INDEX'])
+  endpoint = ENV['FDP_INDEX'] || 'https://tools.ostrails.eu/repositories/fdpindex-fdp'
+  spq = SPARQL::Client.new(endpoint)
   query = "
     #{NAMESPACES}
     SELECT DISTINCT ?testid WHERE

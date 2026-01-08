@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "fdp_tools/lib/fdp_tools/version"
+require_relative "lib/fdp_tools/version"
 
 Gem::Specification.new do |spec|
   spec.name = "fdp_tools"
